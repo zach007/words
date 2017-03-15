@@ -7,3 +7,6 @@ Tips for using git on ubuntu
 3.git commit -m "xxxxx"
 4.git remote add origin git@github.com:xxx/new-project.git
 5.git push origin master
+
+target:
+git commit every day step by step !
