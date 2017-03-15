@@ -1,1 +1,9 @@
 This is a haskell demo for practice 
+
+Tips for using git on ubuntu
+
+1.git init
+2.git add file
+3.git commit -m "xxxxx"
+4.git remote add origin git@github.com:xxx/new-project.git
+5.git push origin master
