@@ -6,8 +6,11 @@ module Lib
     ,getLines
     ,formatGrid
     ,isWordInLine
+    ,isWordInGrid
+    ,isWordInLine2
+    ,isWordInGrid2
     ,findWords
-    ,findWord
+    ,findWordsInGrid
     ) where
 import Data.List(isInfixOf,reverse)
 import Data.Maybe(catMaybes)
@@ -25,20 +28,52 @@ getLines = unlines
 formatGrid :: Grid -> IO()
 formatGrid grid = putStrLn $ getLines grid
 
+{-
 
-findWords :: Grid -> String -> Maybe String
-findWords grid  word =
-  let lines = grid ++ map reverse grid
-      found =  or $ map (isWordInLine word) lines
-  in if found then Just word else Nothing
 
-findWord grid words =
-  let found = map (findWords grid) languages
-  in catMaybes found
-
+-}
 
 isWordInLine :: String -> String -> Bool
 isWordInLine = isInfixOf
+
+isWordInGrid :: Grid -> String -> [Bool]
+isWordInGrid grid word =
+    let lines = grid
+        found = map (isWordInLine word) lines
+    in  found
+{-
+
+
+-}
+isWordInLine2 :: String -> String -> Maybe String
+isWordInLine2 word line =
+      let found = isInfixOf word line
+      in if found then Just word else Nothing
+
+isWordInGrid2 :: Grid -> String -> [Maybe String]
+isWordInGrid2 grid word =
+      let lines = grid
+          found = map (isWordInLine2 word) lines
+      in found
+
+{-
+
+
+-}
+findWords :: Grid -> String -> String
+findWords grid word =
+      let lines = grid
+          found = catMaybes $ isWordInGrid2 lines word
+       in if found == [] then "" else head found
+
+findWordsInGrid :: Grid ->[String] -> [String]
+findWordsInGrid grid words =
+      let lines = grid
+          langs = languages
+          found = map (findWords lines) langs
+       in filter (/= "") found
+
+
 
 grid = [ "__C________R___"
        , "__SI________U__"
