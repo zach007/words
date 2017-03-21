@@ -18,6 +18,14 @@ module Lib
     ,filtered2
     ,composeValue
     ,lambadaCompose
+    ,genCell2
+    ,genCellMonad
+    ,rows
+    ,cols
+    ,rows8
+    ,cols8
+    ,repeat8
+    ,outputformat
     ) where
 import Data.List(isInfixOf,reverse)
 import Data.Maybe(catMaybes)
@@ -36,6 +44,8 @@ getLines = unlines
 formatGrid :: Grid -> IO()
 formatGrid grid = putStrLn $ getLines grid
 
+outputformat :: Show a => [a] -> IO()
+outputformat  = putStrLn .unlines . map show
 {-
 
 
@@ -106,9 +116,33 @@ filtered2 = [ i * 2 | i <-[0..10], div2 i]
 
 composeValue = map (take 10 . repeat) [0..10]
 lambadaCompose = map (\x-> take 10 $ repeat x) [10..20]
-genCell = map (zip [0..14]) (map (replicate 10) [0..11])
---genCell = zip xx [0..14]
 
+--cannot generater the right cell  : compare to function genCellMonad
+--should use loop
+genCell = map (zip [0..14]) (map (replicate 10) [0..11])
+
+--generater cell in a list
+genCell2 = do
+    rows <- [1..10]
+    cols <- [1..10]
+    return (rows, cols)
+
+--generator cellList, use loop in haskell
+genCellMonad = do
+    rows <- [0..10]
+    return $ do
+      cols <- [0..10]
+      return (rows,cols)
+
+cols = repeat [0..]
+rows = map repeat [0..]
+
+repeat8 = take 8 . repeat
+cols8 = repeat8 [0..7]
+rows8 = map repeat8 [0..7]
+
+--coord = zip
+--
 grid = [ "__C________R___"
        , "__SI________U__"
        , "__HASKELL____B_"
