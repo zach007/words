@@ -152,13 +152,16 @@ repeat8 = take 8 . repeat
 cols8 = repeat8 [0..7]
 rows8 = map repeat8 [0..7]
 
+--:t zipOverGrid  : to check the type of two param and  return type
+zipOverGrid = zipWith zip
+
 --like the name zipWith is zip every element with a function
 --and zip is zip every element of each list and make them into a tuple
 myzip = (,)  1 2
 zipDemo = zip [1,1,1] [2,2,2]
 zipWithDemo = zipWith zip [[1,1,1]] [[2,2,2]]
 
-zipOverGrid = zipWith zip
+
 
 grid = [ "__C________R___"
        , "__SI________U__"
