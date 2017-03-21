@@ -25,7 +25,12 @@ module Lib
     ,rows8
     ,cols8
     ,repeat8
-    ,outputformat
+    ,fmt
+    ,myzip
+    ,zipDemo
+    ,zipWithDemo
+    ,zipOverGrid
+    ,coordInf
     ) where
 import Data.List(isInfixOf,reverse)
 import Data.Maybe(catMaybes)
@@ -44,8 +49,8 @@ getLines = unlines
 formatGrid :: Grid -> IO()
 formatGrid grid = putStrLn $ getLines grid
 
-outputformat :: Show a => [a] -> IO()
-outputformat  = putStrLn .unlines . map show
+fmt :: Show a => [a] -> IO()
+fmt  = putStrLn .unlines . map show
 {-
 
 
@@ -119,6 +124,11 @@ lambadaCompose = map (\x-> take 10 $ repeat x) [10..20]
 
 --cannot generater the right cell  : compare to function genCellMonad
 --should use loop
+--this is a wrong idea and can nerver get the same function like genCellMonad,for this
+--1. rows <- replicate 10 [0..10]
+--2. cols <- [0.10]
+--and the construction of rows is [[]] and the cols is [] ,so you have to make them the
+--same construction like [[]]
 genCell = map (zip [0..14]) (map (replicate 10) [0..11])
 
 --generater cell in a list
@@ -136,13 +146,20 @@ genCellMonad = do
 
 cols = repeat [0..]
 rows = map repeat [0..]
+coordInf = zipOverGrid rows cols
 
 repeat8 = take 8 . repeat
 cols8 = repeat8 [0..7]
 rows8 = map repeat8 [0..7]
 
---coord = zip
---
+--like the name zipWith is zip every element with a function
+--and zip is zip every element of each list and make them into a tuple
+myzip = (,)  1 2
+zipDemo = zip [1,1,1] [2,2,2]
+zipWithDemo = zipWith zip [[1,1,1]] [[2,2,2]]
+
+zipOverGrid = zipWith zip
+
 grid = [ "__C________R___"
        , "__SI________U__"
        , "__HASKELL____B_"
