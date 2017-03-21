@@ -17,6 +17,7 @@ module Lib
     ,filtered
     ,filtered2
     ,composeValue
+    ,lambadaCompose
     ) where
 import Data.List(isInfixOf,reverse)
 import Data.Maybe(catMaybes)
@@ -85,15 +86,6 @@ generatorCell =
   zip (replicate 12 1) [0..14] :
   []
 
-{-//todo this should be writed in a good way-}
-genCell :: Int -> Int -> [[(Int,Int)]]
-genCell rowLength colLength =
-    let rowLength = length grid
-        colLength = length (grid !! 0)
-    in
-    zip (replicate rowLength 0) [0..colLength] :
-    zip (replicate rowLength 1) [0..colLength] :
-    []
 
 {-
   monad test
@@ -112,7 +104,10 @@ filtered = do
 
 filtered2 = [ i * 2 | i <-[0..10], div2 i]
 
-composeValue = map (take 10 . repeat) [1..10]
+composeValue = map (take 10 . repeat) [0..10]
+lambadaCompose = map (\x-> take 10 $ repeat x) [10..20]
+genCell = map (zip [0..14]) (map (replicate 10) [0..11])
+--genCell = zip xx [0..14]
 
 grid = [ "__C________R___"
        , "__SI________U__"
