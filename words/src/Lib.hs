@@ -32,6 +32,7 @@ module Lib
     ,zipOverGrid
     ,coordInf
     ,Cell
+    ,cellTest
     ) where
 import Data.List(isInfixOf,reverse)
 import Data.Maybe(catMaybes)
@@ -46,6 +47,7 @@ someFunc = putStrLn "someFunc"
 type Grid = [String]
 data Cell = Cell (Integer, Integer) Char deriving (Eq, Ord, Show)
 
+cellTest = Cell (0,0) 'x'
 getLines = unlines
 
 formatGrid :: Grid -> IO()
